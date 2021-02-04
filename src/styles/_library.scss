@@ -1,19 +1,19 @@
-.library {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 18rem;
-  height: 100%;
-  overflow: scroll;
-  transform: translateX(-100%);
-  transition: all 0.5s ease;
-  opacity: 0;
-  background-color: rgb(170, 162, 162);
-  box-shadow: 2px 2px 50px rgb(207, 207, 207);
-
-  h2 {
-    padding: 2rem;
-  }
+.library{
+    position: fixed;
+    top:0;
+    left:0;
+    width:18rem;
+    height:100%;
+    background-color: #f4f6ff;
+    box-shadow: 2px 2px 50px rgb(207, 207, 207);
+    overflow: scroll;
+    transform:translateX(-100%);
+    transition: all 0.5s ease;
+    opacity:0;
+    h2{
+        padding: 2rem;
+    }
+z-index: 4;
 }
 
 .library-track {
@@ -54,11 +54,9 @@
   width: 5px;
 }
 
-
 *::-webkit-scrollbar-track {
   background: transparent;
 }
-
 
 *::-webkit-scrollbar-thumb {
   border-radius: 20px;

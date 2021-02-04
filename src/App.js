@@ -20,7 +20,7 @@ function App() {
     duration: 0,
   });
 
-  const [libraryStatus, setLibraryStatus]=useState(false);
+  const [libStatus, setLibStatus]=useState(false);
 
   const audioReference = useRef(null);
   const timeUpdateHandler = (e) => {
@@ -28,9 +28,18 @@ function App() {
     const duration = e.target.duration;
     setTrackInfo({ ...trackInfo, currentTime: current, duration: duration });
   };
+
+  const trackEndHandler= async (e) => {
+    let currentIndex = tracks.findIndex( (track) =>  track.id ===  currentTrack.id);
+     await setCurrentTrack(tracks[(currentIndex + 1) % tracks.length]);
+     if(isPlaying){
+      audioReference.current.play();
+     }
+    
+  }
   return (
-    <div className="App">
-    <Navigation libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} /> 
+    <div className={`App ${libStatus?"library-active":""}`}>
+    <Navigation libStatus={libStatus} setLibStatus={setLibStatus} /> 
       <Track currentTrack={currentTrack} />
       <Player
         trackInfo={trackInfo}
@@ -42,7 +51,7 @@ function App() {
         currentTrack={currentTrack}
       />
       <Library
-      libraryStatus={libraryStatus}
+      libStatus={libStatus}
         setTracks={setTracks}
         audioReference={audioReference}
         tracks={tracks}
@@ -50,6 +59,7 @@ function App() {
         isPlaying={isPlaying}
       />
       <audio
+        onEnded={trackEndHandler}
         onLoadedMetadata={timeUpdateHandler}
         onTimeUpdate={timeUpdateHandler}
         ref={audioReference}

@@ -1,6 +1,6 @@
 import React from "react";
 
-const LibTrack = ({ track, tracks, setCurrentTrack, audioRef, isPlaying, id, setTracks }) => {
+const LibTrack = ({ track, tracks, setCurrentTrack, audioReference, isPlaying, id, setTracks }) => {
   const trackSelectHandler = (e) => {
         setCurrentTrack(track);
 
@@ -20,14 +20,19 @@ const LibTrack = ({ track, tracks, setCurrentTrack, audioRef, isPlaying, id, set
     
    
     setTracks(newTracks);
+
+    // if (isPlaying) {
+    //   const playPromise = audioReference.current.play();
+    //   if (playPromise !== undefined) {
+    //     playPromise.then(() => {
+    //       audioReference.current.play();
+    //     });
+    //   }
+    // }
     if (isPlaying) {
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          audioRef.current.play();
-        });
+        audioReference.current.play();
+        
       }
-    }
   };
 
   return (

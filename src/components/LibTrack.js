@@ -9,8 +9,8 @@ const LibTrack = ({
   id,
   setTracks,
 }) => {
-  const trackSelectHandler = (e) => {
-    setCurrentTrack(track);
+  const trackSelectHandler = async (e) => {
+    await setCurrentTrack(track);
 
     const newTracks = tracks.map((track) => {
       if (track.id === id) {

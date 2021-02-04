@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 
 import music from "./music";
 import "./styles/app.scss";
+import "input-range-scss";
 
 import Track from "./components/Track";
 import Player from "./components/Player";
@@ -37,16 +38,20 @@ function App() {
     }
   };
   return (
-    <div className={`App ${libStatus ? "library-active" : ""}`}>
+    // <div className={`App ${libStatus ? "library-active" : ""}`}>
+    <div  className="App">
       <Navigation libStatus={libStatus} setLibStatus={setLibStatus} />
       <Track currentTrack={currentTrack} />
       <Player
+        setTracks={setTracks}
+        tracks={tracks}
         trackInfo={trackInfo}
         setTrackInfo={setTrackInfo}
         timeUpdateHandler={timeUpdateHandler}
         audioReference={audioReference}
         isPlaying={isPlaying}
         setPlaying={setPlaying}
+        setCurrentTrack={setCurrentTrack}
         currentTrack={currentTrack}
       />
       <Library

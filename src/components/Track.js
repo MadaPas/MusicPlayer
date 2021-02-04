@@ -1,9 +1,9 @@
 import React from "react";
 
-const Track = ({ currentTrack }) => {
+const Track = ({ currentTrack, isPlaying }) => {
   return (
     <div className="track-container">
-      <img src={currentTrack.cover} alt={currentTrack.name}></img>
+      <img src={currentTrack.cover} alt={currentTrack.name} className={`${isPlaying?"rotate-song-img":""}`} ></img>
       <h2>{currentTrack.name}</h2>
       <h3>{currentTrack.artist}</h3>
     </div>

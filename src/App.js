@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from "react";
 
 import music from "./music";
@@ -10,17 +9,16 @@ import Navigation from "./components/Navigation";
 import Library from "./components/Library";
 
 function App() {
-
   const [tracks, setTracks] = useState(music());
   const [isPlaying, setPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(tracks[0]);
- 
+
   const [trackInfo, setTrackInfo] = useState({
     currentTime: 0,
     duration: 0,
   });
 
-  const [libStatus, setLibStatus]=useState(false);
+  const [libStatus, setLibStatus] = useState(false);
 
   const audioReference = useRef(null);
   const timeUpdateHandler = (e) => {
@@ -29,17 +27,18 @@ function App() {
     setTrackInfo({ ...trackInfo, currentTime: current, duration: duration });
   };
 
-  const trackEndHandler= async (e) => {
-    let currentIndex = tracks.findIndex( (track) =>  track.id ===  currentTrack.id);
-     await setCurrentTrack(tracks[(currentIndex + 1) % tracks.length]);
-     if(isPlaying){
+  const trackEndHandler = async (e) => {
+    let currentIndex = tracks.findIndex(
+      (track) => track.id === currentTrack.id
+    );
+    await setCurrentTrack(tracks[(currentIndex + 1) % tracks.length]);
+    if (isPlaying) {
       audioReference.current.play();
-     }
-    
-  }
+    }
+  };
   return (
-    <div className={`App ${libStatus?"library-active":""}`}>
-    <Navigation libStatus={libStatus} setLibStatus={setLibStatus} /> 
+    <div className={`App ${libStatus ? "library-active" : ""}`}>
+      <Navigation libStatus={libStatus} setLibStatus={setLibStatus} />
       <Track currentTrack={currentTrack} />
       <Player
         trackInfo={trackInfo}
@@ -51,7 +50,7 @@ function App() {
         currentTrack={currentTrack}
       />
       <Library
-      libStatus={libStatus}
+        libStatus={libStatus}
         setTracks={setTracks}
         audioReference={audioReference}
         tracks={tracks}

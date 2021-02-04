@@ -1,24 +1,31 @@
 import React from "react";
 
-const LibTrack = ({ track, tracks, setCurrentTrack, audioReference, isPlaying, id, setTracks }) => {
+const LibTrack = ({
+  track,
+  tracks,
+  setCurrentTrack,
+  audioReference,
+  isPlaying,
+  id,
+  setTracks,
+}) => {
   const trackSelectHandler = (e) => {
-        setCurrentTrack(track);
+    setCurrentTrack(track);
 
     const newTracks = tracks.map((track) => {
-            if (track.id === id) {
-                return {
-                    ...track, 
-                    active:true,
-                };
-            } else {
-                    return {
-                        ...track,
-                        active:false,
-                    };
-                }
-        });
-    
-   
+      if (track.id === id) {
+        return {
+          ...track,
+          active: true,
+        };
+      } else {
+        return {
+          ...track,
+          active: false,
+        };
+      }
+    });
+
     setTracks(newTracks);
 
     // if (isPlaying) {
@@ -30,13 +37,15 @@ const LibTrack = ({ track, tracks, setCurrentTrack, audioReference, isPlaying, i
     //   }
     // }
     if (isPlaying) {
-        audioReference.current.play();
-        
-      }
+      audioReference.current.play();
+    }
   };
 
   return (
-    <div className={`library-track ${track.active?"selected":""}`} onClick={trackSelectHandler}>
+    <div
+      className={`library-track ${track.active ? "selected" : ""}`}
+      onClick={trackSelectHandler}
+    >
       <img src={track.cover} alt={track.name}></img>
       <div className="track-description">
         <h3>{track.name}</h3>

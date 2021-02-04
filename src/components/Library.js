@@ -1,12 +1,19 @@
 import React from "react";
 import LibTrack from "./LibTrack";
 
-const Library = ({ libStatus, tracks, setCurrentTrack, audioReference, isPlaying, setTracks }) => {
+const Library = ({
+  libStatus,
+  tracks,
+  setCurrentTrack,
+  audioReference,
+  isPlaying,
+  setTracks,
+}) => {
   return (
-    <div className={`library ${libStatus?"active-library":""}`}>
+    <div className={`library ${libStatus ? "active-library" : ""}`}>
       <h2>Library</h2>
       <div className="library-tracks">
-        { tracks.map((track) => {
+        {tracks.map((track) => {
           return (
             <LibTrack
               setTracks={setTracks}

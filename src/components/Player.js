@@ -1,14 +1,40 @@
 import React from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faPlay, 
-    faAngleLeft, 
-    faAngleRight,
-    faPause,
-} from "@fortawesome/free-solid-svg-icons"
+  faPlay,
+  faAngleLeft,
+  faAngleRight,
+  faPause,
+} from "@fortawesome/free-solid-svg-icons";
 
-const Player = ({ trackInfo, setTrackInfo, currentTrack, isPlaying, setPlaying, audioReference }) => {
+const Player = ({
+  setTracks,
+  trackInfo,
+  setTrackInfo,
+  currentTrack,
+  tracks,
+  isPlaying,
+  setPlaying,
+  setCurrentTrack,
+  audioReference,
+}) => {
+  const activeTrackHandler = (nextOrPrev) => {
+    const newTracks = tracks.map((track) => {
+      if (track.id === nextOrPrev.id) {
+        return {
+          ...TextTrack,
+          active: true,
+        };
+      } else {
+        return {
+          ...track,
+          active: false,
+        };
+      }
+    });
 
+    setTracks(newTracks);
+  };
   const playTrackHandler = () => {
     if (isPlaying) {
       audioReference.current.pause();
@@ -17,7 +43,7 @@ const Player = ({ trackInfo, setTrackInfo, currentTrack, isPlaying, setPlaying, 
       audioReference.current.play();
       setPlaying(!isPlaying);
     }
-};
+  };
 
   const getTime = (time) => {
     return (
@@ -27,7 +53,31 @@ const Player = ({ trackInfo, setTrackInfo, currentTrack, isPlaying, setPlaying, 
 
   const dragHandler = (e) => {
     audioReference.current.currentTime = e.target.value;
-    setTrackInfo({ ...trackInfo, currentTime: e.target.value });
+    setTrackInfo({
+      ...trackInfo,
+      currentTime: e.target.value,
+    });
+  };
+
+  const skipTrackHandler = async (direction) => {
+    let currentIndex = tracks.findIndex(
+      (track) => track.id === currentTrack.id
+    );
+    if (direction === "forward") {
+      await setCurrentTrack(tracks[(currentIndex + 1) % tracks.length]);
+      activeTrackHandler(tracks[(currentIndex + 1) % tracks.length]);
+    } else if (direction === "back") {
+      if (currentIndex <= 0) {
+        await setCurrentTrack(tracks[tracks.length - 1]);
+        activeTrackHandler(tracks[tracks.length - 1]);
+      } else {
+        await setCurrentTrack(tracks[(currentIndex - 1) % tracks.length]);
+        activeTrackHandler(tracks[(currentIndex - 1) % tracks.length]);
+      }
+    }
+    if (isPlaying) {
+      audioReference.current.play();
+    }
   };
   return (
     <div className="player">
@@ -40,10 +90,15 @@ const Player = ({ trackInfo, setTrackInfo, currentTrack, isPlaying, setPlaying, 
           max={trackInfo.duration || 0}
           onChange={dragHandler}
         />
-        <p>{getTime(trackInfo.duration)}</p>
+        <p>{trackInfo.duration ? getTime(trackInfo.duration) : "0:00"}</p>
       </div>
       <div className="player-control">
-        <FontAwesomeIcon className="skip-back" size="2x" icon={faAngleLeft} />
+        <FontAwesomeIcon
+          onClick={() => skipTrackHandler("back")}
+          className="skip-back"
+          size="2x"
+          icon={faAngleLeft}
+        />
         <FontAwesomeIcon
           onClick={playTrackHandler}
           className="play"
@@ -51,13 +106,13 @@ const Player = ({ trackInfo, setTrackInfo, currentTrack, isPlaying, setPlaying, 
           icon={isPlaying ? faPause : faPlay}
         />
         <FontAwesomeIcon
+          onClick={() => skipTrackHandler("forward")}
           className="skip-forward"
           size="2x"
           icon={faAngleRight}
-          />
-        </div>
+        />
+      </div>
     </div>
-      );
-    };
-
+  );
+};
 export default Player;

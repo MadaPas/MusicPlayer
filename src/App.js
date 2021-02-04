@@ -8,8 +8,9 @@ import Track from "./components/Track";
 import Player from "./components/Player";
 import Navigation from "./components/Navigation";
 import Library from "./components/Library";
+import Footer from "./components/Footer";
 
-function App() {
+function App({ device }) {
   const [tracks, setTracks] = useState(music());
   const [isPlaying, setPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(tracks[0]);
@@ -19,7 +20,7 @@ function App() {
     duration: 0,
   });
 
-  const [libStatus, setLibStatus] = useState(false);
+  const [libStatus, setLibStatus] = useState(device);
 
   const audioReference = useRef(null);
   const timeUpdateHandler = (e) => {
@@ -38,10 +39,10 @@ function App() {
     }
   };
   return (
-    // <div className={`App ${libStatus ? "library-active" : ""}`}>
-    <div  className="App">
+    <div className={`App ${libStatus ? "library-active" : ""}`}>
+     {/* <div  className="App"> */}
       <Navigation libStatus={libStatus} setLibStatus={setLibStatus} />
-      <Track currentTrack={currentTrack} />
+      <Track currentTrack={currentTrack} isPlaying={isPlaying} />
       <Player
         setTracks={setTracks}
         tracks={tracks}
@@ -55,6 +56,8 @@ function App() {
         currentTrack={currentTrack}
       />
       <Library
+        setLibStatus={setLibStatus}
+        device={device}
         libStatus={libStatus}
         setTracks={setTracks}
         audioReference={audioReference}
@@ -62,6 +65,7 @@ function App() {
         setCurrentTrack={setCurrentTrack}
         isPlaying={isPlaying}
       />
+      <Footer/>
       <audio
         onEnded={trackEndHandler}
         onLoadedMetadata={timeUpdateHandler}

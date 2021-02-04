@@ -5,9 +5,11 @@ const Library = ({
   libStatus,
   tracks,
   setCurrentTrack,
+  setLibStatus,
   audioReference,
   isPlaying,
   setTracks,
+  device,
 }) => {
   return (
     <div className={`library ${libStatus ? "active-library" : ""}`}>
@@ -16,6 +18,8 @@ const Library = ({
         {tracks.map((track) => {
           return (
             <LibTrack
+              device={device}
+              setLibStatus={setLibStatus}
               setTracks={setTracks}
               isPlaying={isPlaying}
               audioReference={audioReference}

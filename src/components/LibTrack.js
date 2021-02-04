@@ -3,11 +3,13 @@ import React from "react";
 const LibTrack = ({
   track,
   tracks,
+  setTracks,
+  setLibStatus,
   setCurrentTrack,
   audioReference,
   isPlaying,
+  device,
   id,
-  setTracks,
 }) => {
   const trackSelectHandler = async (e) => {
     await setCurrentTrack(track);
@@ -27,6 +29,7 @@ const LibTrack = ({
     });
 
     setTracks(newTracks);
+    setLibStatus(device?true:false);
 
     // if (isPlaying) {
     //   const playPromise = audioReference.current.play();

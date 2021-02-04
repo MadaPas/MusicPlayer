@@ -22,7 +22,7 @@ const Player = ({
     const newTracks = tracks.map((track) => {
       if (track.id === nextOrPrev.id) {
         return {
-          ...TextTrack,
+          ...track,
           active: true,
         };
       } else {

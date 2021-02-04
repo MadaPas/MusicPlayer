@@ -4,24 +4,23 @@
   left: 0;
   width: 18rem;
   height: 100%;
-  background-color: white;
-  box-shadow: 2px 2px 50px rgb(207, 207, 207);
   overflow: scroll;
   transform: translateX(-100%);
   transition: all 0.5s ease;
   opacity: 0;
+  background-color: rgb(170, 162, 162);
+  box-shadow: 2px 2px 50px rgb(207, 207, 207);
 
   h2 {
     padding: 2rem;
   }
 }
 
-
 .library-track {
-
   display: flex;
   align-items: center;
   padding: 1rem 2rem 1rem 2rem;
+  transition: background-color 0.5s ease;
   cursor: pointer;
 
   img {
@@ -74,4 +73,10 @@
 .active-library {
   transform: translateX(0%);
   opacity: 1;
+}
+
+@media screen and(max-width:768px) {
+    .library{
+        width: 100%;
+    }
 }

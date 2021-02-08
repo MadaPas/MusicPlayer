@@ -8,9 +8,10 @@ nav {
     background: transparent;
     border: none;
     cursor: pointer;
-    border: 2px solid rgb(98, 138, 132);
+    border: 2px solid rgb(28, 37, 36);
     padding: 0.5rem;
     transition: all 0.3s ease;
+    margin-left: 10em;
 
     &:hover {
       background: rgb(65, 65, 65);

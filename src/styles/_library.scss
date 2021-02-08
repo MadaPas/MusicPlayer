@@ -4,8 +4,8 @@
   left: 0;
   width: 24rem;
   height: 100%;
-  background-color: #93c2be;
-  box-shadow: 2px 2px 50px rgb(98, 138, 132);
+  background-color: #aeafaf;
+  box-shadow: 2px 2px 50px rgb(86, 92, 91);
   overflow: scroll;
   transition: all 0.5s ease;
   opacity: 0;
@@ -32,7 +32,7 @@
   }
 
   &:hover {
-    background-color: rgb(164, 209, 209);
+    background-color: rgb(196, 198, 199);
 
   }
 }
@@ -73,7 +73,7 @@
 }
 
 .selected {
-  background-color: rgb(138, 177, 182);
+  background-color: rgb(244, 246, 247);
 }
 
 .active-library {
